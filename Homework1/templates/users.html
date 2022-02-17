@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    body{
+        background: rgb(27, 129, 49);
+    }
+.myblock{
+    border:1px solid rgb(255, 255, 255);
+    border-radius: 4%;
+    background: rgb(255, 255, 255);
+    margin-top:20%;
+    padding:3%;
+}
+.h1{
+    margin-bottom:5% ;
+    color:rgb(27, 129, 49);
+}
+.mybtn{
+ background: rgb(255, 255, 255);
+}
+
+</style>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">User Listings</h1>
+        <hr class="my-4">
+        {% for i in users %}
+        <h5 style="color:black;">First Name</h5>
+        <p style="color:black;">{{ i.first_name }}</p> <br>
+        <h5 style="color:black;">Last Name</h5>
+        <p style="color:black;">{{ i.last_name }}</p> <br>
+        <h5 style="color:black;">Email</h5>
+        <p style="color:black;">{{ i.email }}</p> <br>
+        {% endfor %}
+        <p class="lead">
+            <a href="/login" class="btn btn-primary btn-lg">Login</a>
+        </p>
+      </div>
+</div>
+
+
+
+
+{% endblock %}
