@@ -30,13 +30,13 @@ def get(id):
     return User.query.get(id)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/home', methods=['GET'])
 @login_required
 def get_home():
     return render_template('home.html')
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_login():
     return render_template('login.html')
 
@@ -50,9 +50,9 @@ def get_signup():
 def login_post():
     username = request.form['username']
     password = request.form['password']
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username, password=password).first()
     login_user(user)
-    return redirect('/')
+    return redirect('/home')
 
 
 @app.route('/signup', methods=['POST'])
@@ -67,7 +67,7 @@ def signup_post():
     db.session.commit()
     user = User.query.filter_by(username=username).first()
     login_user(user)
-    return redirect('/')
+    return redirect('/home')
 
 
 @app.route('/users')
@@ -79,7 +79,14 @@ def users():
 @app.route('/logout', methods=['GET'])
 def logout():
     logout_user()
-    return redirect('/login')
+    return redirect('/')
+
+
+@app.route('/delete', methods=['GET'])
+def delete_all_users():
+    users = User.query.delete()
+    db.session.commit()
+    return render_template('delete.html', users=users)
 
 
 if __name__ == '__main__':
